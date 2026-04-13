@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Log Analysis Report</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:       #0a0c10;
+      --surface:  #111318;
+      --surface2: #181b22;
+      --border:   #1f2430;
+      --text:     #c9d1e0;
+      --muted:    #4a5568;
+      --accent:   #00e5ff;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-head: 'Syne', sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-mono);
+      font-size: 13px;
+      min-height: 100vh;
+    }
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      font-family: var(--font-head);
+      font-weight: 800;
+      font-size: 18px;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+    }
+    .logo span { color: var(--text); opacity: 0.5; }
+    .header-meta {
+      font-size: 11px;
+      color: var(--muted);
+      text-align: right;
+      line-height: 1.6;
+    }
+    .header-meta strong { color: var(--text); }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px;
+    }
+    .hero {
+      margin-bottom: 40px;
+      padding: 36px 40px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+    }
+    .hero-label {
+      font-size: 11px;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .hero-title {
+      font-family: var(--font-head);
+      font-size: 30px;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .hero-file {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .hero-file strong { color: var(--text); }
+    .severity-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .sev-pill {
+      padding: 8px 18px;
+      border-radius: 2px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      border: 1px solid;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .sev-pill .count {
+      font-size: 18px;
+      font-family: var(--font-head);
+      font-weight: 800;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 20px;
+    }
+    .stat-label {
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 8px;
+    }
+    .stat-value {
+      font-family: var(--font-head);
+      font-size: 28px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .stat-value.accent { color: var(--accent); }
+    .section-heading {
+      font-family: var(--font-head);
+      font-size: 14px;
+      font-weight: 700;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-heading::before {
+      content: '';
+      display: block;
+      width: 3px;
+      height: 16px;
+      background: var(--accent);
+    }
+    .alerts-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .alert-card {
+      border: 1px solid;
+      padding: 20px 24px;
+    }
+    .alert-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin-bottom: 8px;
+    }
+    .alert-sev-badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      padding: 3px 8px;
+      border: 1px solid;
+      white-space: nowrap;
+      margin-top: 2px;
+    }
+    .alert-title {
+      font-family: var(--font-head);
+      font-size: 15px;
+      font-weight: 700;
+      color: #fff;
+    }
+    .alert-desc {
+      font-size: 12px;
+      color: var(--text);
+      margin-bottom: 12px;
+      line-height: 1.6;
+    }
+    .alert-rec {
+      font-size: 11px;
+      color: var(--muted);
+      padding: 10px 14px;
+      background: rgba(0,0,0,0.3);
+      border-left: 2px solid var(--accent);
+      line-height: 1.6;
+    }
+    .alert-rec strong { color: var(--accent); }
+    .alert-data {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+    .alert-data span { color: var(--text); margin-left: 4px; }
+    .empty-state {
+      text-align: center;
+      padding: 60px;
+      color: var(--muted);
+    }
+    .empty-state .big { font-size: 48px; margin-bottom: 16px; }
+    footer {
+      margin-top: 60px;
+      padding: 24px 40px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 11px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="logo">LOG<span>/</span>ANALYZER</div>
+  <div class="header-meta">
+    <strong>Windows Event Log</strong><br>
+    Analyzed: 2026-04-12 11:49:13
+  </div>
+</header>
+<div class="container">
+  <div class="hero">
+    <div class="hero-label">Security Analysis Report</div>
+    <div class="hero-title">42 Alerts Detected</div>
+    <div class="hero-file">File: <strong>/home/bilal/Desktop/windows_events.csv</strong> &nbsp;|&nbsp; Type: <strong>Windows Event Log</strong></div>
+  </div>
+  <div class="severity-row">
+        <div class="sev-pill" style="color:#f5c518;border-color:#f5c518;background:rgba(245,197,24,0.08);">
+          <span class="count">42</span>MEDIUM
+        </div></div>
+  <div class="stats-grid"><div class="stat-card"><div class="stat-label">Total Events</div><div class="stat-value">880</div></div>
+<div class="stat-card"><div class="stat-label">Failed Logons</div><div class="stat-value accent">0</div></div>
+<div class="stat-card"><div class="stat-label">Successful Logons</div><div class="stat-value">838</div></div>
+<div class="stat-card"><div class="stat-label">Account Lockouts</div><div class="stat-value">0</div></div>
+<div class="stat-card"><div class="stat-label">Total Alerts</div><div class="stat-value accent">42</div></div></div>
+  <div class="section-heading">Alert Details</div>
+  <div class="alerts-list">
+    
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+
+    <div class="alert-card" style="background:rgba(245,197,24,0.08);border-color:#f5c518;">
+      <div class="alert-header">
+        <span class="alert-sev-badge" style="color:#f5c518;border-color:#f5c518;">MEDIUM</span>
+        <span class="alert-title">Explicit Credential Logon</span>
+      </div>
+      <div class="alert-desc">Explicit credentials used by Unknown at Unknown from </div>
+      <div class="alert-rec"><strong>Recommendation:</strong> Could indicate lateral movement or pass-the-hash attack.</div>
+      <div class="alert-data"><span style="margin-right:16px;">user:<span>Unknown</span></span><span style="margin-right:16px;">timestamp:<span>Unknown</span></span><span style="margin-right:16px;">source:<span></span></span></div>
+    </div>
+  </div>
+</div>
+<footer>
+  Generated by Log Analyzer — SOC Blue Team Toolkit — 2026
+</footer>
+</body>
+</html>

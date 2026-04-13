@@ -1,0 +1,21 @@
+TimeCreated,EventID,SubjectUserName,TargetUserName,IpAddress,WorkstationName,Message
+2024-04-08 01:00:01,4625,SYSTEM,administrator,192.168.10.50,WORKSTATION01,An account failed to log on
+2024-04-08 01:00:03,4625,SYSTEM,administrator,192.168.10.50,WORKSTATION01,An account failed to log on
+2024-04-08 01:00:05,4625,SYSTEM,administrator,192.168.10.50,WORKSTATION01,An account failed to log on
+2024-04-08 01:00:07,4625,SYSTEM,administrator,192.168.10.50,WORKSTATION01,An account failed to log on
+2024-04-08 01:00:09,4625,SYSTEM,administrator,192.168.10.50,WORKSTATION01,An account failed to log on
+2024-04-08 01:00:11,4625,SYSTEM,administrator,192.168.10.50,WORKSTATION01,An account failed to log on
+2024-04-08 01:00:13,4625,SYSTEM,administrator,192.168.10.50,WORKSTATION01,An account failed to log on
+2024-04-08 01:00:15,4625,SYSTEM,administrator,192.168.10.50,WORKSTATION01,An account failed to log on
+2024-04-08 01:02:00,4740,SYSTEM,administrator,192.168.10.50,WORKSTATION01,A user account was locked out
+2024-04-08 01:05:00,4624,administrator,administrator,192.168.10.20,WORKSTATION02,An account was successfully logged on
+2024-04-08 01:10:00,4648,jsmith,administrator,192.168.10.30,SERVER01,A logon was attempted using explicit credentials
+2024-04-08 02:00:00,4720,jsmith,backdoor_user,-,SERVER01,A user account was created
+2024-04-08 02:05:00,4732,jsmith,backdoor_user,-,SERVER01,A member was added to a security-enabled local group
+2024-04-08 02:30:00,7045,SYSTEM,SYSTEM,-,SERVER01,A new service was installed in the system
+2024-04-08 02:31:00,4698,jsmith,jsmith,-,SERVER01,A scheduled task was created
+2024-04-08 03:00:00,1102,jsmith,jsmith,-,SERVER01,The audit log was cleared
+2024-04-08 03:05:00,4625,SYSTEM,guest,10.10.10.5,KIOSK01,An account failed to log on
+2024-04-08 03:05:02,4625,SYSTEM,guest,10.10.10.5,KIOSK01,An account failed to log on
+2024-04-08 03:05:04,4625,SYSTEM,guest,10.10.10.5,KIOSK01,An account failed to log on
+2024-04-08 04:00:00,4624,bilal,bilal,10.0.0.10,WORKSTATION03,An account was successfully logged on

