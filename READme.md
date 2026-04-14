@@ -39,6 +39,8 @@ log file and it produces a full report with alerts ranked by severity in seconds
 **Output**
 - HTML dashboard with severity color coding and remediation guidance
 - JSON report for SIEM integration or pipeline use
+- <img width="932" height="777" alt="image" src="https://github.com/user-attachments/assets/fdb5f0bb-fefb-4806-88e5-f41902227fa8" />
+
 
 ---
 
