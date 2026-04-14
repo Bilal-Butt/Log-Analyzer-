@@ -44,7 +44,17 @@ log file and it produces a full report with alerts ranked by severity in seconds
 
 ## Project Structure
 
-
+log-analyzer/
+├── analyzer.py                  ← main entry point
+├── detectors/
+│   ├── auth_detector.py         ← Linux auth log analysis
+│   └── windows_detector.py      ← Windows Event log analysis
+├── reporters/
+│   ├── json_reporter.py         ← JSON report output
+│   └── html_reporter.py         ← HTML dashboard output
+└── samples/
+├── sample_auth.log          ← sample Linux auth log
+└── sample_windows.csv       ← sample Windows Event log
 ---
 
 ## Requirements
@@ -106,6 +116,15 @@ python3 analyzer.py windows_events.csv -o output/windows_report
 
 Running against the sample Linux auth log:
 
+[] Auto-detected log type: linux_auth
+[] Analyzing: samples/sample_auth.log
+[+] Analysis complete — 13 alert(s) found
+CRITICAL: 1
+HIGH: 5
+MEDIUM: 7
+[+] JSON report: output/auth_report.json
+[+] HTML report: output/auth_report.html
+
 ---
 
 ## Alert Severity Levels
@@ -149,4 +168,4 @@ Running against the sample Linux auth log:
 ## Author
 
 Bilal Butt — Computer Engineering Graduate
-Cybersecurity Portfolio — SOC Analyst and Threat Analyst roles
+
