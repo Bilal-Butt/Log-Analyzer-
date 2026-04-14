@@ -1,0 +1,152 @@
+# Log Analyzer & Alert Engine
+
+A Python-based security log analysis tool built for SOC and Blue Team workflows.
+Parses Linux auth logs and Windows Event logs, detects suspicious activity,
+and generates color-coded HTML dashboards and structured JSON reports.
+
+Built as part of a cybersecurity portfolio targeting SOC Analyst and Threat Analyst roles.
+
+---
+
+## What It Does
+
+In a real SOC environment, analysts manually review hundreds of log lines every day
+looking for signs of attacks. This tool automates that process — you point it at a
+log file and it produces a full report with alerts ranked by severity in seconds.
+
+---
+
+## Features
+
+**Linux Auth Log Detection**
+- SSH brute force detection with per-IP threshold tracking
+- Distributed SSH attack pattern detection
+- Root SSH login alerts
+- Suspicious sudo command detection (shell spawns, wget, curl, passwd changes)
+- Sudo authentication failure tracking
+- Targeted user account enumeration detection
+
+**Windows Event Log Detection**
+- Logon brute force detection (Event ID 4625)
+- Account lockout alerts (Event ID 4740)
+- Audit log cleared detection (Event ID 1102) — anti-forensics indicator
+- New user account creation (Event ID 4720)
+- User added to privileged group (Event ID 4728, 4732)
+- New service installation (Event ID 7045)
+- Scheduled task creation and modification (Event ID 4698, 4702)
+- Explicit credential use and lateral movement (Event ID 4648)
+
+**Output**
+- HTML dashboard with severity color coding and remediation guidance
+- JSON report for SIEM integration or pipeline use
+
+---
+
+## Project Structure
+
+
+---
+
+## Requirements
+
+Python 3.8 or higher. No external libraries required — uses Python standard library only.
+
+---
+
+## Installation
+
+```bash
+git clone https://github.com/Bilal-Butt/Log-Analyzer-.git
+cd Log-Analyzer-
+```
+
+---
+
+## Usage
+
+```bash
+# Analyze a Linux auth log
+python3 analyzer.py samples/sample_auth.log -o output/auth_report
+
+# Analyze a Windows Event CSV
+python3 analyzer.py samples/sample_windows.csv -o output/windows_report
+
+# Force log type manually
+python3 analyzer.py mylog.log --type linux_auth
+
+# Generate JSON report only
+python3 analyzer.py auth.log --no-html
+
+# Generate HTML report only
+python3 analyzer.py auth.log --no-json
+```
+
+Output files are saved as `report.html` and `report.json` in the output folder.
+
+---
+
+## Running Against Real Logs
+
+**On Linux:**
+```bash
+python3 analyzer.py /var/log/auth.log -o output/real_report
+firefox output/real_report.html
+```
+
+**On Windows:**
+Export the Security Event log from Event Viewer as a CSV file, transfer it to your
+Linux machine and run:
+```bash
+python3 analyzer.py windows_events.csv -o output/windows_report
+```
+
+---
+
+## Sample Output
+
+Running against the sample Linux auth log:
+
+---
+
+## Alert Severity Levels
+
+| Severity | Examples |
+|----------|---------|
+| CRITICAL | Root SSH login, audit log cleared |
+| HIGH | Brute force detected, new user created, service installed |
+| MEDIUM | Sudo failure, targeted account, scheduled task change |
+| LOW | Informational anomalies |
+
+---
+
+## Windows Event IDs Monitored
+
+| Event ID | Description | Why It Matters |
+|----------|-------------|----------------|
+| 4625 | Failed Logon | Brute force detection |
+| 4624 | Successful Logon | Confirms successful access |
+| 4740 | Account Lockout | Evidence of brute force |
+| 4720 | User Account Created | Persistence technique |
+| 4648 | Explicit Credential Logon | Lateral movement indicator |
+| 4698 | Scheduled Task Created | Persistence technique |
+| 4732 | User Added to Local Group | Privilege escalation |
+| 1102 | Audit Log Cleared | Anti-forensics indicator |
+| 7045 | New Service Installed | Malware persistence |
+
+---
+
+## Skills Demonstrated
+
+- Python scripting and regex pattern matching
+- Linux and Windows log format knowledge
+- SOC Tier 1 and Tier 2 detection logic
+- Threshold-based alerting similar to SIEM tools like Splunk
+- Threat hunting and incident triage workflows
+- Structured reporting for analyst handoff
+
+---
+
+## Author
+
+Bilal Butt — Computer Engineering Graduate
+Cybersecurity Portfolio — SOC Analyst and Threat Analyst roles
