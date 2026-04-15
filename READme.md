@@ -52,7 +52,8 @@ In a real SOC environment, analysts manually review hundreds of log lines every 
 ## Project Structure
 
 log-analyzer/
-├── analyzer.py                  ← main entry point
+├── analyzer.py   
+← main entry point
 ├── detectors/
 │   ├── auth_detector.py         ← Linux auth log analysis
 │   └── windows_detector.py      ← Windows Event log analysis
@@ -127,9 +128,14 @@ Running against the sample Linux auth log:
 
 [] Analyzing: samples/sample_auth.log
 
-[+] Analysis complete — 13 alert(s) found
+[+] Analysis complete 
+
+13 alert(s) found
+
 CRITICAL: 1
+
 HIGH: 5
+
 MEDIUM: 7
 
 [+] JSON report: output/auth_report.json
