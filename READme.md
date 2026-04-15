@@ -52,11 +52,10 @@ In a real SOC environment, analysts manually review hundreds of log lines every 
 ## Project Structure
 
 log-analyzer/
-|
 ├── analyzer.py   
 |
 ├── detectors/
-│   |├── auth_detector.py         
+│   ├── auth_detector.py         
 │   └── windows_detector.py
 |
 ├── reporters/
