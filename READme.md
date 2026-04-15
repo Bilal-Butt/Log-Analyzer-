@@ -124,12 +124,16 @@ python3 analyzer.py windows_events.csv -o output/windows_report
 Running against the sample Linux auth log:
 
 [] Auto-detected log type: linux_auth
+
 [] Analyzing: samples/sample_auth.log
+
 [+] Analysis complete — 13 alert(s) found
 CRITICAL: 1
 HIGH: 5
 MEDIUM: 7
+
 [+] JSON report: output/auth_report.json
+
 [+] HTML report: output/auth_report.html
 
 ---
