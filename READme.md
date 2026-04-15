@@ -1,5 +1,11 @@
 # Log Analyzer & Alert Engine
 
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python&logoColor=white)
+![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20Windows-lightgrey)
+![License](https://img.shields.io/badge/License-MIT-green)
+![Status](https://img.shields.io/badge/Status-Active-brightgreen)
+![Focus](https://img.shields.io/badge/Focus-SOC%20%7C%20Blue%20Team-darkblue)
+
 A Python-based security log analysis tool built for SOC and Blue Team workflows.
 Parses Linux auth logs and Windows Event logs, detects suspicious activity,
 and generates color-coded HTML dashboards and structured JSON reports.
@@ -8,11 +14,10 @@ Built as part of a cybersecurity portfolio targeting SOC Analyst and Threat Anal
 
 ---
 
-## What It Does
+## Why I Build This
 
-In a real SOC environment, analysts manually review hundreds of log lines every day
-looking for signs of attacks. This tool automates that process — you point it at a
-log file and it produces a full report with alerts ranked by severity in seconds.
+In a real SOC environment, analysts manually review hundreds of log lines every day looking for signs of attacks. This tool automates that triage process, point it at a log file and it produces a full severity-ranked report in seconds. The detection logic mirrors Tier 1 and Tier 2 SOC workflows and maps directly to common SIEM alerting patterns used in tools like Splunk.
+
 
 ---
 
@@ -170,4 +175,7 @@ MEDIUM: 7
 ## Author
 
 Bilal Butt — Computer Engineering Graduate
+Actively pursuing SOC Analyst and Threat Analyst roles in the NYC/Long Island area.  
+[LinkedIn](linkedin.com/in/muhammad-bilal-butt-03a476232) | [GitHub](https://github.com/Bilal-Butt)
+
 
