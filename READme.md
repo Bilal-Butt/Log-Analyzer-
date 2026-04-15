@@ -1,6 +1,6 @@
 # Log Analyzer & Alert Engine
 
-![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python&logoColor=blue)
 ![Platform](https://img.shields.io/badge/Platform-Linux%20%7C%20Windows-lightgrey)
 ![License](https://img.shields.io/badge/License-MIT-green)
 ![Status](https://img.shields.io/badge/Status-Active-brightgreen)
