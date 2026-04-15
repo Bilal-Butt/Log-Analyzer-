@@ -53,16 +53,15 @@ In a real SOC environment, analysts manually review hundreds of log lines every 
 
 log-analyzer/
 ├── analyzer.py   
-← main entry point
 ├── detectors/
-│   ├── auth_detector.py         ← Linux auth log analysis
-│   └── windows_detector.py      ← Windows Event log analysis
+│   ├── auth_detector.py         
+│   └── windows_detector.py      
 ├── reporters/
-│   ├── json_reporter.py         ← JSON report output
-│   └── html_reporter.py         ← HTML dashboard output
+│   ├── json_reporter.py         
+│   └── html_reporter.py         
 └── samples/
-├── sample_auth.log          ← sample Linux auth log
-└── sample_windows.csv       ← sample Windows Event log
+├── sample_auth.log          
+└── sample_windows.csv       
 ---
 
 ## Requirements
