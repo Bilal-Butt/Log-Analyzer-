@@ -53,6 +53,7 @@ In a real SOC environment, analysts manually review hundreds of log lines every 
 
 log-analyzer/
 ├── analyzer.py   
+
 ├── detectors/
 │   ├── auth_detector.py         
 │   └── windows_detector.py      
